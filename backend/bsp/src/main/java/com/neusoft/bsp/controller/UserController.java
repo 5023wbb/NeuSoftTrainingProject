@@ -27,7 +27,7 @@ public class UserController extends BaseController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/addUser")
+    /*@PostMapping("/addUser")
     public BaseModel addUser(@Validated({InsertGroup.class}) @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw BusinessException.INSERT_FAIL.newInstance(this.getErrorResponse(bindingResult),
@@ -42,9 +42,9 @@ public class UserController extends BaseController {
                 throw BusinessException.INSERT_FAIL;
             }
         }
-    }
+    }*/
 
-    @PostMapping("/checkUser")
+    /*@PostMapping("/checkUser")
     public BaseModelJson<User> checkUserForVue(@RequestBody User user) {
         Map<String, Object> map = new HashMap<>();
         map.put("username", user.getUsername());
@@ -57,8 +57,8 @@ public class UserController extends BaseController {
             result.code = 200;
             return result;
         }
-    }
-
+    }*/
+/*
     @GetMapping("/getInfo")
     public BaseModelJson<Map> getInfoForVue() {
         Map<String, Object> map = new HashMap<>();
@@ -96,7 +96,6 @@ public class UserController extends BaseController {
             }
         }
     }
-    //当MVO公司信息不存在时,更新man_buyer_id
     @PostMapping("/updateUser")
     public BaseModel updateUser(@Validated({UpdateGroup.class}) @RequestBody User user, BindingResult bindingResult) {  //bindingResult用于获得validate的反馈信息
         if (bindingResult.hasErrors()) {
@@ -129,5 +128,5 @@ public class UserController extends BaseController {
         result.data = userService.getAllByFilter(pageNum, pageSize, map);
 
         return result;
-    }
+    }*/
 }
