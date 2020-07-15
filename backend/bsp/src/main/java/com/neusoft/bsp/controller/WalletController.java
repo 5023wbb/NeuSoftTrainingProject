@@ -9,16 +9,19 @@ import com.neusoft.bsp.common.validationGroup.InsertGroup;
 import com.neusoft.bsp.multientitys.WaaWafWtrWta;
 import com.neusoft.bsp.wallet.entity.Waa;
 import com.neusoft.bsp.wallet.entity.Waf;
+import com.neusoft.bsp.wallet.entity.Wta;
+import com.neusoft.bsp.wallet.entity.Wtr;
 import com.neusoft.bsp.wallet.service.WaaService;
 import com.neusoft.bsp.wallet.service.WafService;
+import com.neusoft.bsp.wallet.service.WtaService;
 import com.neusoft.bsp.wallet.service.WtrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -34,6 +37,9 @@ public class WalletController extends BaseController {
 
     @Autowired
     WtrService wtrService;
+
+    @Autowired
+    WtaService wtaService;
 
     //查询用户钱包信息
     @RequestMapping("/getWalletInfo")
@@ -104,8 +110,7 @@ public class WalletController extends BaseController {
                 try{
                     wafService.updateWaf(multiResult.getWaf());//更新waf
                     wtrService.insertWtr(multiResult.getWtr());//插入wtr
-
-
+                    wtaService.insertWta(multiResult.getWta());//插入wta
                     result.code = 200;
                     result.message = "success";
                 }catch (Exception e){
@@ -119,6 +124,40 @@ public class WalletController extends BaseController {
         }
 
         return result;
+    }
+
+    //查看流水记录
+    @RequestMapping("/searchBusinessFlow")
+    public BaseModelJson<Map<String,Object>> searchBusinessFlow(@RequestBody int buyer_id, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            throw BusinessException.BUYERID_NULL_ERROR.newInstance(this.getErrorResponse(bindingResult),
+                    new Object[]{buyer_id});
+
+        }else {
+            Map<String,Object> resultMap = new HashMap();
+            List<Wtr> resultWtr = wtrService.searchWtrByBuyerId(buyer_id);//查询wtr
+            List<Wta> resultWta = wtaService.searchWtaByBuyerId(buyer_id);//查询wta
+            resultMap.put("wtr",resultWtr);
+            resultMap.put("wta",resultWta);
+            BaseModelJson<Map<String,Object>> result = new BaseModelJson();//返回结果
+            result.data = resultMap;
+            if (resultWtr.size() != 0 && resultWta.size() != 0){
+                result.message = "success";
+                result.code = 200;
+            }else if (resultWtr.size() == 0 && resultWta.size() != 0){
+                result.message = "no wtr result";
+                result.code = 201;
+            }else if (resultWtr.size() != 0 && resultWta.size() == 0){
+                result.message = "no wta result";
+                result.code = 202;
+            }else {
+                result.message = "no wtr & wta result";
+                result.code = 203;
+            }
+            return result;
+        }
+
+
     }
 
 

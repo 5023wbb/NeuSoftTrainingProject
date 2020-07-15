@@ -11,6 +11,8 @@ public class BusinessException extends RuntimeException {
     public static final BusinessException BRDID_NULL_ERROR = new BusinessException(504, "brdid shouln't be null", new Object[0]);
     public static final BusinessException PROID_NULL_ERROR = new BusinessException(504, "brdid shouln't be null", new Object[0]);
     public static final BusinessException SAOID_NULL_ERROR = new BusinessException(504, "brdid shouln't be null", new Object[0]);
+    public static final BusinessException BUYERID_NULL_ERROR = new BusinessException(504, "brdid shouln't be null", new Object[0]);
+    public static final BusinessException AUDIT_ERROR = new BusinessException(504, "brdid shouln't be null", new Object[0]);
     int code;
     String msg;
 
