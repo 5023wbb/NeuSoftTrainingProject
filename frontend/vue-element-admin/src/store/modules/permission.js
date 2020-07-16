@@ -1,6 +1,4 @@
-import { constantRoutes } from '@/router'
-import Layout from '@/layout'
-import { getAuthMenu } from '@/api/user'
+import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -14,30 +12,6 @@ function hasPermission(roles, route) {
     return true
   }
 }
-
-/**
- * 后台查询的菜单数据拼装成路由格式的数据
- * @param routes
- */
-export function generaMenu(routes, data) {
-  data.forEach(item => {
-    // alert(JSON.stringify(item))
-    const menu = {
-      path: item.menu_url === '#' ? item.menu_name : item.menu_url,
-      component: item.menu_url === '#' ? Layout : resolve => require([`@/views${item.menu_url}`], resolve),
-      hidden: item.menu_hidden,
-      children: [],
-      name: item.menu_name,
-      meta: { title: item.menu_name, icon: item.menu_icon}
-    }
-    if (item.children) {
-      generaMenu(menu.children, item.children)
-    }
-    routes.push(menu)
-    // console.log(routes)
-  })
-}
-
 
 /**
  * Filter asynchronous routing tables by recursion
@@ -56,6 +30,7 @@ export function filterAsyncRoutes(routes, roles) {
       res.push(tmp)
     }
   })
+
   return res
 }
 
@@ -71,41 +46,17 @@ const mutations = {
   }
 }
 
-
 const actions = {
-  generateRoutes({ commit }, username) {
-    console.log(username)
+  generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      const loadMenuData = []
-      // 先查询后台并返回左侧菜单数据并把数据添加到路由
-      getAuthMenu(username).then(response => {
-        let data = response
-        if (response.code !== 200) {
-          this.$message({
-            message: '菜单数据加载异常',
-            type: 0
-          })
-        } else {
-          data = response.data
-          // console.log(response)
-          Object.assign(loadMenuData, data)
-          let accessedRoutes = []
-          generaMenu(accessedRoutes, loadMenuData)
-          console.log(accessedRoutes)
-          
-          // if (roles.includes('')) {
-          //   // alert(JSON.stringify(asyncRoutes))
-          //   accessedRoutes = asyncRoutes || []
-          // } else {
-          //   accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-          // }
-          commit('SET_ROUTES', accessedRoutes)
-          resolve(accessedRoutes)
-        }
-        // generaMenu(asyncRoutes, data)
-      }).catch(error => {
-        console.log(error)
-      })
+      let accessedRoutes
+      if (roles.includes('admin')) {
+        accessedRoutes = asyncRoutes || []
+      } else {
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      }
+      commit('SET_ROUTES', accessedRoutes)
+      resolve(accessedRoutes)
     })
   }
 }
@@ -116,5 +67,3 @@ export default {
   mutations,
   actions
 }
-
-
