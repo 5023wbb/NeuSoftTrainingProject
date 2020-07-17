@@ -2,6 +2,7 @@ package com.neusoft.bsp.codemaster.mapper;
 
 import com.neusoft.bsp.codemaster.entity.Cdm;
 import com.neusoft.bsp.common.base.BaseMapper;
+import com.neusoft.bsp.parameter.entity.Par;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public interface CdmMapper extends BaseMapper<String, Cdm> {
 
     //根据cmd_id(主键)删除cdm
     int deleteCdm(int cdm_id);
+
+    //根据code_type查询cdm
+    List<Cdm> searchCdmByCt(String code_type);
 
 
 }

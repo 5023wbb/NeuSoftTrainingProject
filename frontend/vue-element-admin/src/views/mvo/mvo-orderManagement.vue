@@ -242,7 +242,7 @@ export default {
   mounted() {},
   methods: {
     newInput() {
-      this.$router.push({ path: "/mvo/mvo-goodsNewRecord" });
+      this.$router.push({ path: "/mvo/goodsNewRecord" });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

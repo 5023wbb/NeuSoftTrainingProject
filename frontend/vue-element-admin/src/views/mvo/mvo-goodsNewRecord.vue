@@ -30,7 +30,7 @@
         <span slot="label">
           长
         </span>
-        <el-input class="formInput" v-model="ruleForm.commodityLength" style="width: 100px"></el-input>
+        <el-input class="formInput" v-model="ruleForm.commodityWidth" style="width: 100px"></el-input>
         <span style="margin: 10px">cm</span>
       </el-form-item>
       <el-form-item prop="commodityWidth">
@@ -143,19 +143,7 @@ export default {
   data() {
     return {
       ruleForm: {
-        commodityName:'',
-        commodityLength: '',
-        commodityWeight: '',
-        commodityHeight:'',
-        commodityWeight: '',
-        skuCode: '',
-        upcCode: '',
-        enaCode: '',
-        model: '',
-        price: '',
-        guaranteePeriod: '',
-        eBayDescription: '',
-        amazonDescription: ''
+        
       },
       rules: {
         commodityName: [
@@ -207,7 +195,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
-            this.$router.push({path: '/mvo/mvo-myInfo-edit'})
+            this.$router.push({path: '/mvo/myInfo-edit'})
           } else {
             console.log('error submit!!');
             return false;

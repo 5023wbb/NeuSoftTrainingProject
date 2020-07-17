@@ -46,7 +46,7 @@ export default {
             this.timer = null
             
             // 跳转myInfo
-            this.$router.replace('/mvo/mvo-myInfo-edit')
+            this.$router.replace('/mvo/myInfo-edit')
             window.close();
           }
         }, 1000)

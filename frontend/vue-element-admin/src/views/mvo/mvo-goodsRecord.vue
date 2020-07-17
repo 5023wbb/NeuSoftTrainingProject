@@ -60,7 +60,7 @@ export default {
    methods:{
       newInput() {
         
-        this.$router.push({path: '/mvo/mvo-goodsNewRecord'})
+        this.$router.push({path: '/mvo/goodsNewRecord'})
           
       
       },

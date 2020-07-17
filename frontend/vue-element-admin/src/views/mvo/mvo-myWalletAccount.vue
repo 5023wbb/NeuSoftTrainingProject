@@ -60,7 +60,7 @@ export default {
   mounted() {},
   methods: {
     withdrawDetail(){
-        this.$router.push('/mvo/mvo-withdrawDetail')
+        this.$router.push('/mvo/my-wallet-withdraw-detail')
     }
   }
 };

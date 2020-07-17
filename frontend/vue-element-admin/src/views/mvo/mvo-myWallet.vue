@@ -85,7 +85,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
-            this.$router.push({path: '/mvo/mvo-myWalletAccount'})
+            this.$router.push({path: '/mvo/my-wallet-account'})
           } else {
             console.log('error submit!!');
             return false;
