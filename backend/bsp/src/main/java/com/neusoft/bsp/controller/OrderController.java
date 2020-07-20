@@ -205,8 +205,16 @@ public class OrderController {
         String PASSWORD = param.get("password");
         if(orderService.getPASSWORD(ACCOUNTNAME).equals(PASSWORD)){
             String SAO_ID = param.get("orderID");
-            orderService.updateORDER_STS(SAO_ID);
-            code = 20000;
+            String BUYER_ID = orderService.getBUYER_ID(ACCOUNTNAME);
+            int ORDER_AMOUNT =  orderService.getORDER_AMOUNT(SAO_ID);
+            int AVAILABLE_MONEY = orderService.getAVAILABLE_MONEY(BUYER_ID);
+            if(ORDER_AMOUNT <= AVAILABLE_MONEY){
+                AVAILABLE_MONEY = AVAILABLE_MONEY - ORDER_AMOUNT;
+                String newMoney = String.valueOf(AVAILABLE_MONEY);
+                orderService.updateAVAILABLE_MONEY(newMoney, BUYER_ID);
+                orderService.updateORDER_STS(SAO_ID);
+                code = 20000;
+            }
         }
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();

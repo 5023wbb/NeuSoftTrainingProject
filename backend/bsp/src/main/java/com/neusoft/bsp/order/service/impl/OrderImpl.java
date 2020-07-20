@@ -151,4 +151,24 @@ public class OrderImpl implements OrderService {
     public void updateORDER_STS(String SAO_ID) {
         orderMapper.updateORDER_STS(SAO_ID);
     }
+
+    @Override
+    public int getORDER_AMOUNT(String SAO_ID) {
+        return orderMapper.getORDER_AMOUNT(SAO_ID);
+    }
+
+    @Override
+    public String getBUYER_ID(String ACCOUNT_NAME) {
+        return orderMapper.getBUYER_ID(ACCOUNT_NAME);
+    }
+
+    @Override
+    public int getAVAILABLE_MONEY(String BUYER_ID) {
+        return orderMapper.getAVAILABLE_MONEY(BUYER_ID);
+    }
+
+    @Override
+    public void updateAVAILABLE_MONEY(String newMoney, String BUYER_ID) {
+        orderMapper.updateAVAILABLE_MONEY(newMoney, BUYER_ID);
+    }
 }

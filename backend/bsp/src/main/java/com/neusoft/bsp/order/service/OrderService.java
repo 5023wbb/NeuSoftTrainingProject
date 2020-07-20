@@ -31,4 +31,8 @@ public interface OrderService {
     String getUSERNAME(String MAN_BUYER_ID);
     String getPASSWORD(String ACCOUNT_NAME);
     void updateORDER_STS(String SAO_ID);
+    int getORDER_AMOUNT(String SAO_ID);
+    String getBUYER_ID(String ACCOUNT_NAME);
+    int getAVAILABLE_MONEY(String BUYER_ID);
+    void updateAVAILABLE_MONEY(String newMoney, String BUYER_ID);
 }
