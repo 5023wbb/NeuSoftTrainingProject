@@ -589,6 +589,7 @@ export default {
             message: '亲~您的订单支付成功 您的宝贝理你越来越近了'
           })
 		this.currentOrder = ''
+		this.searchorder()
         })
       }
     },
