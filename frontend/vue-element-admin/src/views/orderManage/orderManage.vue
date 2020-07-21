@@ -583,13 +583,24 @@ export default {
           password: this.forM.password,
 		  orderID: this.currentOrder
         }).then(res => {
-          this.$message({
-            type: 'success',
-            showClose: true,
-            message: '亲~您的订单支付成功 您的宝贝理你越来越近了'
-          })
-		this.currentOrder = ''
-		this.searchorder()
+		  console.log(res.code + "ayusgduhasbfduhabfuhbasbgf")
+		  if(res.code != 20000){
+			  this.$message({
+			    type: 'warning',
+			    showClose: true,
+			    message: '您的密码不正确或者余额不足'
+			  })
+		  }
+		  else{
+			  this.$message({
+				type: 'success',
+				showClose: true,
+				message: '亲~您的订单支付成功 您的宝贝理你越来越近了'
+			  })
+			  this.currentOrder = ''
+			  this.searchorder()
+		  }
+		  this.forM.password = ''
         })
       }
     },

@@ -23,9 +23,6 @@
           <el-form-item label="店铺名称" :label-width="formLabelWidth">
             <el-input v-model="form.storeName" autocomplete="off" placeholder="请输入店铺名称"/>
           </el-form-item>
-          <el-form-item label="借卖方ID" :label-width="formLabelWidth">
-            <el-input v-model="form.dsrID" autocomplete="off" placeholder="请输入借卖方ID"/>
-          </el-form-item>
           <el-form-item label="网点网址" :label-width="formLabelWidth">
             <el-radio-group v-model="form.website">
               <el-radio label="1">Amazon</el-radio>
@@ -56,8 +53,7 @@ export default {
       formLabelWidth: '120px',
       form: {
         storeName: '',
-        website: '',
-        dsrID: ''
+        website: ''
       }
     }
   },
@@ -95,21 +91,30 @@ export default {
       this.form.website = ''
     },
     savestore() {
-      this.dialogFormVisible = false
-      saveStore({
-        dsr_ID: this.form.dsrID,
-        store_Name: this.form.storeName,
-		website_Name: this.form.website
-      }).then(res => {
-        this.$message({
-          showClose: true,
-          type: 'success',
-          message: ' 保存成功',
-        })
-		this.form.website = ''
-			this.form.storeName = ''
-		    this.form.dsrID = ''
-      })
+	  if(this.form.storeName === '' || this.form.website === ''){
+		  this.$message({
+		    showClose: true,
+		    type: 'warning',
+		    message: ' 您的信息不完整，无法添加',
+		  })
+	  } else{
+		  this.dialogFormVisible = false
+		  saveStore({
+		    dsr_ID: '1',
+		    store_Name: this.form.storeName,
+		  		website_Name: this.form.website
+		  }).then(res => {
+		    this.$message({
+		      showClose: true,
+		      type: 'success',
+		      message: ' 保存成功',
+		    })
+		  		this.form.website = ''
+		  			this.form.storeName = ''
+		  		    this.form.dsrID = ''
+		  })
+	  }
+      
     }
   }
 }
