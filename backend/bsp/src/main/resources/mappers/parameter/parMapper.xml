@@ -25,5 +25,9 @@
         delete from par_parameter where par_id = #{par_id}
     </delete>
 
+    <select id="searchParByCd" resultType="Par">
+        select * from par_parameter where param_cd like #{param_cd}
+    </select>
+
 
 </mapper>
