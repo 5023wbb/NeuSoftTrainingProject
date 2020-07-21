@@ -1,19 +1,27 @@
 import request from '@/utils/request'
 
+export function getAuthMenu(username) {
+  return request({
+    url: 'menu/getAuthMenu',
+    method: 'post',
+    params: {username}
+  })
+}
+
 export function login(data) {
   return request({
-    url: 'user/checkUser',
+    url: 'login',
     method: 'post',
     data
   })
 }
 
-export function getInfo(token) {
+export function getInfo(username) {
   return request({
     // url: '/vue-element-admin/user/info',
     url: 'user/getInfo',
     method: 'get',
-    params: { token }
+    params: { username }
   })
 }
 

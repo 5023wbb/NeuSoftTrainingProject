@@ -121,7 +121,71 @@ export const constantRoutes = [
         meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
+  },
+  {
+    path: '/walletadmin',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/walletadmin/index'),
+        name: 'WalletAdmin',
+        meta: { title: 'WalletAdmin', icon: 'icon', noCache: true }
+      }
+    ]
   }
+  // {
+  //   path: '/parameter',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/parameter/index'),
+  //       name: 'Parameter',
+  //       meta: {
+  //         title: 'Parameter',
+  //         icon: 'icon'
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/codemaster',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/cdm/index'),
+  //       name: 'CodeMaster',
+  //       meta: {
+  //         title: 'CodeMaster',
+  //         icon: 'education'
+  //       }
+  //     }
+  //   ]
+  // }
+  // {
+  //   path: '/menu',
+  //   component: Layout,
+  //   meta: {
+  //            title: '菜单管理',
+  //            icon: 'menu'
+  //        },
+  //   children: [
+  //     {
+  //       path: 'menu/menuList',
+  //       component: () => import('@/views/menu/menuList'),
+  //       name: '菜单列表',
+  //       meta: { title: '菜单列表', icon: 'user' }
+  //     },
+  //     {
+  //       path: 'menu/menuAuth',
+  //       component: () => import('@/views/menu/menuAuth'),
+  //       name: '菜单权限',
+  //       meta: { title: '菜单权限', icon: 'user' }
+  //     },
+  //   ]
+  // }
 ]
 
 /**
@@ -129,277 +193,243 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
-    name: 'Permission',
-    meta: {
-      title: 'Permission',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: 'Page Permission',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: 'Directive Permission'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
+//   {
+//     path: '/permission',
+//     component: Layout,
+//     redirect: '/permission/page',
+//     alwaysShow: true, // will always show the root menu
+//     name: 'Permission',
+//     meta: {
+//       title: 'Permission',
+//       icon: 'lock',
+//       roles: ['admin', 'editor'] // you can set roles in root nav
+//     },
+//     children: [
+//       {
+//         path: 'page',
+//         component: () => import('@/views/permission/page'),
+//         name: 'PagePermission',
+//         meta: {
+//           title: 'Page Permission',
+//           roles: ['admin'] // or you can only set roles in sub nav
+//         }
+//       },
+//       {
+//         path: 'directive',
+//         component: () => import('@/views/permission/directive'),
+//         name: 'DirectivePermission',
+//         meta: {
+//           title: 'Directive Permission'
+//           // if do not set roles, means: this page does not require permission
+//         }
+//       },
+//       {
+//         path: 'role',
+//         component: () => import('@/views/permission/role'),
+//         name: 'RolePermission',
+//         meta: {
+//           title: 'Role Permission',
+//           roles: ['admin']
+//         }
+//       }
+//     ]
+//   },
 
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
+//   {
+//     path: '/icon',
+//     component: Layout,
+//     children: [
+//       {
+//         path: 'index',
+//         component: () => import('@/views/icons/index'),
+//         name: 'Icons',
+//         meta: { title: 'Icons', icon: 'icon', noCache: true }
+//       }
+//     ]
+//   },
 
-  /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  tableRouter,
+//   /** when your routing map is too long, you can split it into small modules **/
+//   componentsRouter,
+//   chartsRouter,
+//   tableRouter,
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/list',
-    name: 'Example',
-    meta: {
-      title: 'Example',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        path: 'create',
-        component: () => import('@/views/example/create'),
-        name: 'CreateArticle',
-        meta: { title: 'Create Article', icon: 'edit' }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
-      }
-    ]
-  },
+//   {
+//     path: '/example',
+//     component: Layout,
+//     redirect: '/example/list',
+//     name: 'Example',
+//     meta: {
+//       title: 'Example',
+//       icon: 'el-icon-s-help'
+//     },
+//     children: [
+//       {
+//         path: 'create',
+//         component: () => import('@/views/example/create'),
+//         name: 'CreateArticle',
+//         meta: { title: 'Create Article', icon: 'edit' }
+//       },
+//       {
+//         path: 'edit/:id(\\d+)',
+//         component: () => import('@/views/example/edit'),
+//         name: 'EditArticle',
+//         meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+//         hidden: true
+//       },
+//       {
+//         path: 'list',
+//         component: () => import('@/views/example/list'),
+//         name: 'ArticleList',
+//         meta: { title: 'Article List', icon: 'list' }
+//       }
+//     ]
+//   },
 
-  {
-    path: '/mvo',
-    component: Layout,
-    // redirect: '/mvo/myInfo',
-    name: 'myInfo',
-    meta: {
-      title: 'MVO',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'first-meet',
-        component: () => import('@/views/mvo/mvo-firstMeet'),
-        name: 'firstMeet',
-        meta: { title: 'First Meet'},
-        hidden:true
-      },
-      {
-        path: 'myInfo',
-        component: () => import('@/views/mvo/mvo-myInfo'),
-        name: 'myinfo',
-        meta: { title: 'My Infomation'}
-      },
-      {
-        path: 'myInfo-edit',
-        component: () => import('@/views/mvo/mvo-myInfo-edit'),
-        name: 'myinfo',
-        meta: { title: 'MyInfo Edit' },
-        hidden: true
-      },
-      {
-        path: 'goodsRecord',
-        component: () => import('@/views/mvo/mvo-goodsRecord'),
-        name: 'Goods Record',
-        meta: { title: 'Goods Record' }
-      },
-      // {
-      //   path: 'goodsRecord',
-      //   component: () => import('@/views/mvo'),
-      //   name: 'goodsinputpic',
-      //   meta: { title: 'Goods Input Pic' }
-      // },
-      {
-        path: 'goodsNewRecord',
-        component: () => import('@/views/mvo/mvo-goodsNewRecord'),
-        name: 'Goods New Record',
-        meta: { title: 'New Goods Record'},
-        hidden: true
-      },
-      {
-        path: 'order-management',
-        component: () => import('@/views/mvo/mvo-orderManagement'),
-        name: 'Order Management',
-        meta: { title: 'Order Management'},
-      },
-      {
-        path: 'goods-main',
-        component: () => import('@/views/mvo/mvo-goodsMain'),
-        name: 'Goods Main',
-        meta: { title: 'Goods Main'},
-      },
+//   {
+//     path: '/mvo',
+//     component: Layout,
+//     // redirect: '/mvo/myInfo',
+//     name: 'myInfo',
+//     meta: {
+//       title: 'MVO',
+//       icon: 'excel'
+//     },
+//     children: [
+//       {
+//         path: '/mvo/mvo-firstMeet',
+//         component: () => import('@/views/mvo/mvo-firstMeet'),
+//         name: 'firstMeet',
+//         meta: { title: 'First Meet'},
+//         hidden:true
+//       },
+//       {
+//         path: '/mvo/mvo-myInfo',
+//         component: () => import('@/views/mvo/mvo-myInfo'),
+//         name: 'myinfo',
+//         meta: { title: 'My Infomation'},
+//         children:[]
+//       },
+//       {
+//         path: '/mvo/mvo-myInfo-edit',
+//         component: () => import('@/views/mvo/mvo-myInfo-edit'),
+//         name: 'myinfo',
+//         meta: { title: 'MyInfo Edit' },
+//         hidden: true
+//       },
+//       {
+//         path: '/mvo/mvo-goodsRecord',
+//         component: () => import('@/views/mvo/mvo-goodsRecord'),
+//         name: 'Goods Record',
+//         meta: { title: 'Goods Record' },
+//         children: []
+//       },
+//       {
+//         path: '/mvo/mvo-goodsNewRecord',
+//         component: () => import('@/views/mvo/mvo-goodsNewRecord'),
+//         name: 'Goods New Record',
+//         meta: { title: 'New Goods Record'},
+//         hidden: true
+//       },
+//       {
+//         path: '/mvo/mvo-orderManagement',
+//         component: () => import('@/views/mvo/mvo-orderManagement'),
+//         name: 'Order Management',
+//         meta: { title: 'Order Management'},
+//       },
+//       {
+//         path: '/mvo/mvo-goodsMain',
+//         component: () => import('@/views/mvo/mvo-goodsMain'),
+//         name: 'Goods Main',
+//         meta: { title: 'Goods Main'},
+//       },
 
-      {
-        path: 'my-wallet',
-        component: () => import('@/views/mvo/mvo-myWallet'),
-        name: 'mywallet',
-        meta: { title: 'My Wallet' }
-      },
-{
-      path: 'my-wallet-account',
-      component: () => import('@/views/mvo/mvo-myWalletAccount'),
-      name: 'My Wallet Account',
-      meta: { title: 'Wallet Account' },
-      hidden: true
-    },
-    {
-      path: 'my-wallet-withdraw-detail',
-      component: () => import('@/views/mvo/mvo-withdrawDetail'),
-      name: 'Withdraw Detail',
-      meta: { title: 'Withdraw Detail' },
-      hidden: true
-    }
+//       {
+//         path: '/mvo/mvo-myWallet',
+//         component: () => import('@/views/mvo/mvo-myWallet'),
+//         name: 'mywallet',
+//         meta: { title: 'My Wallet' }
+//       },
+// {
+//       path: '/mvo/mvo-myWalletAccount',
+//       component: () => import('@/views/mvo/mvo-myWalletAccount'),
+//       name: 'My Wallet Account',
+//       meta: { title: 'Wallet Account' },
+//       hidden: true
+//     },
+//     {
+//       path: '/mvo/mvo-withdrawDetail',
+//       component: () => import('@/views/mvo/mvo-withdrawDetail'),
+//       name: 'Withdraw Detail',
+//       meta: { title: 'Withdraw Detail' },
+//       hidden: true
+//     }
 
-    ]
-  },
+//     ]
+//   },
 
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: 'Excel',
-    meta: {
-      title: 'BVO',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/bvo/bvo-myInfo'),
-        name: 'myinfo',
-        meta: { title: 'My Infomation' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'goodsstore',
-        meta: { title: 'Goods Store' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'goodslist',
-        meta: { title: 'Goods List' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'wishlist',
-        meta: { title: 'Wish List' }
-      },
-      {
-        path: 'upload-excel1',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'ordermanagement',
-        meta: { title: 'Order Management' }
-      },
-      {
-        path: 'upload-excel2',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'mywallet',
-        meta: { title: 'My Wallet' }
-      }
-    ]
-  },
+//   {
+//     path: '/excel',
+//     component: Layout,
+//     redirect: '/excel/export-excel',
+//     name: 'Excel',
+//     meta: {
+//       title: 'BVO',
+//       icon: 'excel'
+//     },
+//     children: [
+//       {
+//         path: 'export-excel',
+//         component: () => import('@/views/bvo/bvo-myInfo'),
+//         name: 'myinfo',
+//         meta: { title: 'My Infomation' }
+//       },
+//       {
+//         path: 'export-selected-excel',
+//         component: () => import('@/views/excel/select-excel'),
+//         name: 'goodsstore',
+//         meta: { title: 'Goods Store' }
+//       },
+//       {
+//         path: 'export-merge-header',
+//         component: () => import('@/views/excel/merge-header'),
+//         name: 'goodslist',
+//         meta: { title: 'Goods List' }
+//       },
+//       {
+//         path: 'upload-excel',
+//         component: () => import('@/views/excel/upload-excel'),
+//         name: 'wishlist',
+//         meta: { title: 'Wish List' }
+//       },
+//       {
+//         path: 'upload-excel1',
+//         component: () => import('@/views/excel/upload-excel'),
+//         name: 'ordermanagement',
+//         meta: { title: 'Order Management' }
+//       },
+//       {
+//         path: 'upload-excel2',
+//         component: () => import('@/views/excel/upload-excel'),
+//         name: 'mywallet',
+//         meta: { title: 'My Wallet' }
+//       }
+//     ]
+//   },
 
-  {
-    path: '/theme',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'Theme', icon: 'theme' }
-      }
-    ]
-  },
-  {
-    path: '/parameter',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/parameter/index'),
-        name: 'Parameter',
-        meta: {
-          title: 'Parameter',
-          icon: 'icon'
-        }
-      }
-    ]
-  },
-  {
-    path: '/codemaster',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/cdm/index'),
-        name: 'CodeMaster',
-        meta: {
-          title: 'CodeMaster',
-          icon: 'education'
-        }
-      }
-    ]
-  },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+//   {
+//     path: '/theme',
+//     component: Layout,
+//     children: [
+//       {
+//         path: 'index',
+//         component: () => import('@/views/theme/index'),
+//         name: 'Theme',
+//         meta: { title: 'Theme', icon: 'theme' }
+//       }
+//     ]
+//   },
+//   // 404 page must be placed at the end !!!
+//   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

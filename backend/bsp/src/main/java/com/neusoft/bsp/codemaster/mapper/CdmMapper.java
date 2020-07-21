@@ -2,7 +2,6 @@ package com.neusoft.bsp.codemaster.mapper;
 
 import com.neusoft.bsp.codemaster.entity.Cdm;
 import com.neusoft.bsp.common.base.BaseMapper;
-import com.neusoft.bsp.parameter.entity.Par;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

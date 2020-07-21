@@ -1,5 +1,4 @@
 import {getCdms,searchCdm,insertCdm,updateCdm,deleteCdm} from "../../api/cdmHandler";
-import {deletePar, getPars, insertPar, searchPar, updatePar} from "@/api/parameterHandler";
 
 const cdm = {
   actions : {

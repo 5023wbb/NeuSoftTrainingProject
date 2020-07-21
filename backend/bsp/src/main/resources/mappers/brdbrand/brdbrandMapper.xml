@@ -24,4 +24,8 @@
                              sts_cd = #{sts_cd} where brd_id = #{brd_id}
     </update>
 
+    <select id="searchLastedId" resultType="int">
+        select max(brd_id) from brd_brand
+    </select>
+
 </mapper>

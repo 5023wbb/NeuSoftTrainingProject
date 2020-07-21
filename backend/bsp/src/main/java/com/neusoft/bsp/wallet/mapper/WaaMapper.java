@@ -2,7 +2,6 @@ package com.neusoft.bsp.wallet.mapper;
 
 import com.neusoft.bsp.common.base.BaseMapper;
 import com.neusoft.bsp.wallet.entity.Waa;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository

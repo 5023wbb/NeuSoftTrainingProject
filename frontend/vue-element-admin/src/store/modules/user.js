@@ -30,51 +30,63 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', 'Admin_Token')
-        setToken('Admin_Token')
-        console.log('=====getToken==========')
-        console.log(getToken())
-        console.log('=====getToken==========')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+  // login({ commit }, userInfo) {
+  //   const { username, password } = userInfo
+  //   return new Promise((resolve, reject) => {
+  //     login({ username: username.trim(), password: password }).then(response => {
+  //       alert(1111)
+  //       console.log(response)
+  //       alert(response)
+  //       const { data } = response
+      
+  //       commit('SET_TOKEN', username.trim())
+  //       setToken(username.trim())
+  //       console.log('=====getToken==========')
+  //       console.log(getToken())
+  //       console.log('=====getToken==========')
+  //       resolve(data)
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
 
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({commit}) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response// const data = response.data
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-        const { roles, name, avatar, introduction } = data
-        // const roles = data.roles
-        // const name = data.nam
-        // const avatar = data.avatar
-        // const introduction = data.introductio
+      setTimeout(() => {
+        
+        getInfo(getToken()).then(response => {
+          // console.log(state.name)
+          const { data } = response// const data = response.data
+          if (!data) {
+            reject('Verification failed, please Login again.')
+          }
+          const { roles, name, avatar, introduction } = data
+          // const roles = data.roles
+          // const name = data.nam
+          // const avatar = data.avatar
+          // const introduction = data.introductio
+  
+          // roles must be a non-empty array
+          if (!roles || roles.length <= 0) {
+            reject('getInfo: roles must be a non-null array!')
+          }
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', name)
+          commit('SET_AVATAR', avatar)
+          commit('SET_INTRODUCTION', introduction)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      }, 500)
+      
 
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    }
+    
+    )
   },
 
   // user logout

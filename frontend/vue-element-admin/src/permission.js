@@ -19,8 +19,9 @@ router.beforeEach(async(to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken()
+  const hasRealToken = window.sessionStorage.getItem('USER_AUTH')
 
-  if (hasToken) {
+  if (hasToken && hasRealToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
@@ -37,10 +38,14 @@ router.beforeEach(async(to, from, next) => {
           const { roles } = await store.dispatch('user/getInfo')
 
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          const accessRoutes = await store.dispatch('permission/generateRoutes', getToken())
+          console.log(234234)
+          console.log(accessRoutes)
 
           // dynamically add accessible routes
+          // router.options.routes = accessRoutes;
           router.addRoutes(accessRoutes)
+          console.log(router)
 
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record

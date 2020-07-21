@@ -7,19 +7,17 @@ import com.neusoft.bsp.common.exception.BusinessException;
 import com.neusoft.bsp.common.validationGroup.UpdateGroup;
 import com.neusoft.bsp.mvoproduct.entity.*;
 import com.neusoft.bsp.mvoproduct.service.*;
+import com.neusoft.bsp.user.entity.User;
 import com.neusoft.bsp.utils.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 //品牌商商品管理
 @CrossOrigin
@@ -77,8 +75,8 @@ public class BrdProductManagementController extends BaseController {
     }
 
     @RequestMapping("/searchUnionInfo")
-    public BaseModelJson<List<Map>> searchUnionInfo(@RequestBody int man_id){
-        List<ProProduct> resultPro = proProductService.searchProduct(man_id);//根据man_id查询对应的pro列表
+    public BaseModelJson<List<Map>> searchUnionInfo(@RequestBody User user){
+        List<ProProduct> resultPro = proProductService.searchProduct(user.getMan_buyer_id());//根据man_id查询对应的pro列表
         List<OfpOfferPrice> resultOfp;//用来记录每一个pro_id对应的多个ofp
         PckPackageInfo resultPak;//用来记录每一个pro_id对应的唯一pck
         PdnProductDescription resultPdn;//用来记录每一个pro_id对应的唯一pdn
@@ -179,6 +177,35 @@ public class BrdProductManagementController extends BaseController {
             }
         }
 
+    }
+
+
+    // 上传图片
+    @PostMapping(value = "/uploadImg")
+    public String upLoadFile(MultipartFile file) {
+        System.out.println(file);
+        String filePath = "D://bsp/src/main/resources/static/upload/";
+        //判断文件夹是否存在,不存在则创建
+        File file_ = new File(filePath);
+
+        if (!file_.exists()) {
+            file_.mkdirs();
+        }
+        String originalFileName = file.getOriginalFilename();//获取原始图片的扩展名
+        System.out.println("name  " + originalFileName);
+        String newFileName = UUID.randomUUID() + originalFileName;
+        String newFilePath = filePath + newFileName; //新文件的路径
+
+        try {
+            file.transferTo(new File(newFilePath));//将传来的文件写入新建的文件
+            System.out.println("上传图片成功进行上传文件测试");
+            return newFileName;
+        } catch (IllegalStateException e) {
+            //处理异常
+        } catch (IOException e1) {
+            //处理异常
+        }
+        return "success";
     }
 
 

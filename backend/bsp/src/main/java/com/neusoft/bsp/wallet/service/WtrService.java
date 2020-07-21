@@ -1,7 +1,6 @@
 package com.neusoft.bsp.wallet.service;
 
 import com.neusoft.bsp.wallet.entity.Wtr;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

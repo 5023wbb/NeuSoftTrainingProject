@@ -7,6 +7,7 @@ import com.neusoft.bsp.common.base.BaseModelJson;
 import com.neusoft.bsp.common.exception.BusinessException;
 import com.neusoft.bsp.common.validationGroup.InsertGroup;
 import com.neusoft.bsp.multientitys.WaaWafWtrWta;
+import com.neusoft.bsp.user.entity.User;
 import com.neusoft.bsp.wallet.entity.Waa;
 import com.neusoft.bsp.wallet.entity.Waf;
 import com.neusoft.bsp.wallet.entity.Wta;
@@ -18,7 +19,10 @@ import com.neusoft.bsp.wallet.service.WtrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +47,11 @@ public class WalletController extends BaseController {
 
     //查询用户钱包信息
     @RequestMapping("/getWalletInfo")
-    public BaseModelJson<Map> getWalletInfo(@RequestBody String account_name){
+    public BaseModelJson<Map> getWalletInfo(@RequestBody User user){
 
         BaseModelJson<Map> result = new BaseModelJson();
         Map resultMap = new HashMap();
-        Waa resultWaa = waaService.searchWaaByName(account_name);//查询对应的钱包账户
+        Waa resultWaa = waaService.searchWaaByName(user.getUsername());//查询对应的钱包账户
 
         if (resultWaa != null){//如果有对应的钱包账户
             Waf resultWaf = wafService.searchWafById(resultWaa.getBuyer_id());//继续查询对应的唯一waf

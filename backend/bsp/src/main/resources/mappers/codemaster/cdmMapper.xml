@@ -27,8 +27,4 @@
         delete from cdm_code_master where cdm_id = #{cdm_id}
     </delete>
 
-    <select id="searchCdmByCt" parameterType="java.lang.String" resultType="Cdm">
-        select * from cdm_code_master where code_type like #{code_type}
-    </select>
-
 </mapper>

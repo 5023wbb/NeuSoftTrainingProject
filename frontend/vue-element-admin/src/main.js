@@ -38,6 +38,12 @@ import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css'
 Vue.use(QuillEditor)
 
+import iconPicker from 'e-icon-picker';
+import 'e-icon-picker/dist/index.css';//基础样式
+import 'e-icon-picker/dist/main.css'; //fontAwesome 图标库样式
+
+Vue.use(iconPicker);
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

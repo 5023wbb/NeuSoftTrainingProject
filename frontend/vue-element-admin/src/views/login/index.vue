@@ -76,6 +76,8 @@
 <script>
 // import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import axios from 'axios'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -152,24 +154,44 @@ export default {
         this.$refs.password.focus()
       })
     },
+
+    /**
+     * 保存用户基本权限信息
+     * @param auth
+     */
+    setAuth(auth) {
+        if (auth) {
+            let authString = JSON.stringify(auth);
+            window.sessionStorage.setItem("USER_AUTH", authString);
+        }
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
+          axios.post("http://localhost:8088/login", this.loginForm).then(rs => {
+                if (rs.data.code == 0) {
+                    //登录成功
+                    let userAuth = rs.data.data;
+                    //存用户权限信息
+                    setToken(this.loginForm.username.trim())
+                    this.setAuth(userAuth)
+                    // this.$store.commit('SET_TOKEN', this.loginForm.username.trim())
+                    //决定是否跳转
+                    this.$router.push('/dashboard')
+                    // this.gotoManagerCenter(userAuth.token);
+                } else {
+                    alert(rs.data.msg);
+                }
+            }).catch(err => {
+                alert(err);
+            });
         } else {
           console.log('error submit!!')
           return false
         }
       })
     },
+    
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {

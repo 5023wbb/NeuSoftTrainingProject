@@ -1,6 +1,5 @@
 package com.neusoft.bsp.wallet.service.Impl;
 
-import com.neusoft.bsp.user.service.impl.UserServiceImpl;
 import com.neusoft.bsp.wallet.entity.Wta;
 import com.neusoft.bsp.wallet.mapper.WtaMapper;
 import com.neusoft.bsp.wallet.service.WtaService;
