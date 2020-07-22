@@ -5,11 +5,11 @@
 <mapper namespace="com.neusoft.bsp.productDetail.mapper.ProductDetailMapper">
 
     <select id="getProductID" parameterType="java.lang.String" resultType="java.lang.String" >
-        select PRO_ID from pro_product where TITLE = #{TITLE}
+        select PRO_ID from pro_product1 where TITLE = #{TITLE}
     </select>
 
     <select id="getProductBrandID" parameterType="java.lang.String" resultType="java.lang.String" >
-        select BRD_ID from pro_product where TITLE = #{TITLE}
+        select BRD_ID from pro_product1 where TITLE = #{TITLE}
     </select>
 
     <select id="getProductBrandName" parameterType="java.lang.String" resultType="java.lang.String" >
@@ -17,19 +17,19 @@
     </select>
 
     <select id="getProductPrice" parameterType="java.lang.String" resultType="java.lang.String" >
-        select RETAIL_PRICE from pro_product where TITLE = #{TITLE}
+        select RETAIL_PRICE from pro_product1 where TITLE = #{TITLE}
     </select>
 
     <select id="getProductSku" parameterType="java.lang.String" resultType="java.lang.String" >
-        select SKU_CD from pro_product where TITLE = #{TITLE}
+        select SKU_CD from pro_product1 where TITLE = #{TITLE}
     </select>
 
     <select id="getProductDescription" parameterType="java.lang.String" resultType="java.lang.String" >
-        select DESCRITION from pdn_product_descrition where PRO_ID = #{PRO_ID}
+        select DESCRITION from pdn_product_descrition1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductImgUrl" parameterType="java.lang.String" resultType="java.lang.String" >
-        select URL from img_image where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
+        select URL from img_image1 where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
     </select>
 
     <insert id = "addToWishList" parameterType="java.lang.String">
@@ -38,7 +38,7 @@
     </insert>
 
     <select id="checkWishList" parameterType="java.lang.String" resultType="java.lang.Integer" >
-        select count(*) from bsp.wit_wishlist where DSR_ID = #{DSR_ID} and PRO_ID = #{PRO_ID}
+        select count(*) from wit_wishlist where DSR_ID = #{DSR_ID} and PRO_ID = #{PRO_ID}
     </select>
 
     <insert id = "addToStore" parameterType="java.lang.String">

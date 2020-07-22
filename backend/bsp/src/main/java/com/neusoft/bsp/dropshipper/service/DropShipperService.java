@@ -1,7 +1,5 @@
 package com.neusoft.bsp.dropshipper.service;
 
-import org.springframework.stereotype.Service;
-
 //@Service
 public interface DropShipperService {
     String getDropShipperName(String DSR_ID);

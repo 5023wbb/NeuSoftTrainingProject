@@ -2,6 +2,7 @@ package com.neusoft.bsp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.neusoft.bsp.common.base.BaseModelJson;
+import com.neusoft.bsp.common.base.BaseModelJson1;
 import com.neusoft.bsp.wishlist.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,14 +17,13 @@ import java.util.Map;
 
 @CrossOrigin
 @RestController
-
 public class WishListController {
     @Autowired
     WishListService wishListService;
 
     @PostMapping("/getWishList")
     public String getProductDetail(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         System.out.println("IDDDDDDDDDDDDDDDDDDDDDDDDDD      " + DSR_ID);
         List<HashMap> response = new LinkedList<>();
@@ -37,12 +37,12 @@ public class WishListController {
             responseMap.put("proID", resi);
             response.add(responseMap);
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/deleteWishListProduct")
     public String deleteWishListProduct(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         System.out.println("DSRRRRRRRRRRRRRRRRRRR   " + DSR_ID);
         String PRO_ID = param.get("proID");
@@ -52,6 +52,6 @@ public class WishListController {
         List<String> res = wishListService.getProductID(DSR_ID);
         HashMap<String, Object> responseMap = new HashMap<>();
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 }

@@ -2,14 +2,14 @@ package com.neusoft.bsp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.neusoft.bsp.common.base.BaseModelJson;
-import com.neusoft.bsp.store.service.StoreService;
+import com.neusoft.bsp.common.base.BaseModelJson1;
 import com.neusoft.bsp.store.entity.Store;
+import com.neusoft.bsp.store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,7 +24,7 @@ public class StoreController {
 
     @PostMapping("/getEbayStore")
     public String getEbayStore(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsrID");
         //System.out.println("DSRID: " + DSR_ID);
         List<HashMap> response = new LinkedList<>();
@@ -35,12 +35,12 @@ public class StoreController {
             responseMap.put("STR_ID", storeService.getEbayStoreID(resi));
             response.add(responseMap);
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getAmazonStore")
     public String getAmazonStore(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsrID");
         List<HashMap> response = new LinkedList<>();
         List<String> res = storeService.getAmazonStore(DSR_ID);
@@ -50,12 +50,12 @@ public class StoreController {
             responseMap.put("STR_ID", storeService.getAmazonStoreID(resi));
             response.add(responseMap);
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/addStore")
     public String addStore(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String STORE_NAME = param.get("store_Name");
         String DSR_ID = param.get("dsr_ID");
         String PLATAEFORM_TYPE = param.get("website_Name");
@@ -64,6 +64,6 @@ public class StoreController {
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 }

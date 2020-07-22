@@ -2,6 +2,7 @@ package com.neusoft.bsp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.neusoft.bsp.common.base.BaseModelJson;
+import com.neusoft.bsp.common.base.BaseModelJson1;
 import com.neusoft.bsp.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +23,7 @@ public class OrderController {
 
     @PostMapping("/getAwaitingOrder")
     public String getAwaitingOrder(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         String STORE_NAME = param.get("str_Name");
         String STR_ID = orderService.getSTR_ID(DSR_ID, STORE_NAME);
@@ -44,12 +45,12 @@ public class OrderController {
             }
 
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getAwaitingShipmentOrder")
     public String getAwaitingShipmentOrder(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         String STORE_NAME = param.get("str_Name");
         String STR_ID = orderService.getSTR_ID(DSR_ID, STORE_NAME);
@@ -71,12 +72,12 @@ public class OrderController {
             }
 
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getShippedOrder")
     public String getShippedOrder(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         String STORE_NAME = param.get("str_Name");
         String STR_ID = orderService.getSTR_ID(DSR_ID, STORE_NAME);
@@ -98,12 +99,12 @@ public class OrderController {
             }
 
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getCompleteOrder")
     public String getCompleteOrder(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         String STORE_NAME = param.get("str_Name");
         String STR_ID = orderService.getSTR_ID(DSR_ID, STORE_NAME);
@@ -125,12 +126,12 @@ public class OrderController {
             }
 
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getCanceledOrder")
     public String getCanceledOrder(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String DSR_ID = param.get("dsr_ID");
         String STORE_NAME = param.get("str_Name");
         String STR_ID = orderService.getSTR_ID(DSR_ID, STORE_NAME);
@@ -152,12 +153,12 @@ public class OrderController {
             }
 
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getOrderDetail")
     public String getOrderDetail(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String SAO_ID = param.get("order_ID");
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
@@ -165,23 +166,23 @@ public class OrderController {
         responseMap.put("ship_Number", orderService.getTRACKING_NO(SAO_ID));
         responseMap.put("ship_Company", orderService.getWSP_NAME(SAO_ID));
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getDELIVERY_STS")
     public String getDELIVERY_STS(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String SAO_ID = param.get("order_ID");
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("DELIVERY_STS", orderService.getDELIVERY_STS(SAO_ID));
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/getPayDetail")
     public String getPayDetail(@RequestBody Map<String,String> param){
-        int code = 20000;
+        int code = 200;
         String SAO_ID = param.get("orderID");
         String STO_ID = orderService.getSTO_IDBySAO_ID(SAO_ID);
         List<HashMap> response = new LinkedList<>();
@@ -194,7 +195,7 @@ public class OrderController {
         responseMap.put("orPostCode", orderService.getPOSTAL_CD(STO_ID));
         responseMap.put("orShipfee", orderService.getFREIGHT_COST(SAO_ID));
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
     @PostMapping("/pay")
@@ -213,12 +214,12 @@ public class OrderController {
                 String newMoney = String.valueOf(AVAILABLE_MONEY);
                 orderService.updateAVAILABLE_MONEY(newMoney, BUYER_ID);
                 orderService.updateORDER_STS(SAO_ID);
-                code = 20000;
+                code = 200;
             }
         }
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 }

@@ -2,7 +2,6 @@ package com.neusoft.bsp.dropshipper.service.impl;
 
 import com.neusoft.bsp.dropshipper.mapper.DropShipperMapper;
 import com.neusoft.bsp.dropshipper.service.DropShipperService;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

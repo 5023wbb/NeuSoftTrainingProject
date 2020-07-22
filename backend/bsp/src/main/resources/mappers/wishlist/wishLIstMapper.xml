@@ -5,23 +5,23 @@
 <mapper namespace="com.neusoft.bsp.wishlist.mapper.WishListMapper">
 
     <select id="getProductID" parameterType="java.lang.String" resultType="java.lang.String" >
-        select PRO_ID from bsp.wit_wishlist where DSR_ID = #{DSR_ID}
+        select PRO_ID from wit_wishlist where DSR_ID = #{DSR_ID}
     </select>
 
     <select id="getProductName" parameterType="java.lang.String" resultType="java.lang.String" >
-        select TITLE from pro_product where PRO_ID = #{PRO_ID}
+        select TITLE from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductPrice" parameterType="java.lang.String" resultType="java.lang.String" >
-        select RETAIL_PRICE from pro_product where PRO_ID = #{PRO_ID}
+        select RETAIL_PRICE from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductSKU" parameterType="java.lang.String" resultType="java.lang.String" >
-        select SKU_CD from pro_product where PRO_ID = #{PRO_ID}
+        select SKU_CD from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductImgUrl" parameterType="java.lang.String" resultType="java.lang.String" >
-        select URL from img_image where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
+        select URL from img_image1 where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
     </select>
 
     <delete id = "deleteProduct" parameterType="java.lang.String">

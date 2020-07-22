@@ -1,6 +1,7 @@
 package com.neusoft.bsp.order.mapper;
 
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository

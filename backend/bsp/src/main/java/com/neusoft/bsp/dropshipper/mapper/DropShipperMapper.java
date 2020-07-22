@@ -1,7 +1,5 @@
 package com.neusoft.bsp.dropshipper.mapper;
 
-import com.neusoft.bsp.dropshipper.entity.DropShipper;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -17,22 +17,22 @@
     </select>-->
 
     <select id="getProductImgUrl" parameterType="java.lang.String" resultType="java.lang.String" >
-        select URL from img_image where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
+        select URL from img_image1 where ENTITY_ID = #{PRO_ID} and ENTITY_CD = "pro_product"
     </select>
 
     <select id="getProID" parameterType="java.lang.String" resultType="java.lang.String" >
-        select PRO_ID from pro_product where STS_CD = 'a'
+        select PRO_ID from pro_product1 where STS_CD = 'a'
     </select>
 
     <select id="getProductTitle" parameterType="java.lang.String" resultType="java.lang.String" >
-        select TITLE from pro_product where PRO_ID = #{PRO_ID}
+        select TITLE from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductPrice" parameterType="java.lang.String" resultType="java.lang.String" >
-        select RETAIL_PRICE from pro_product where PRO_ID = #{PRO_ID}
+        select RETAIL_PRICE from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getProductSku" parameterType="java.lang.String" resultType="java.lang.String" >
-        select SKU_CD from pro_product where PRO_ID = #{PRO_ID}
+        select SKU_CD from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 </mapper>

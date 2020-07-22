@@ -2,14 +2,16 @@ package com.neusoft.bsp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.neusoft.bsp.common.base.BaseModelJson;
+import com.neusoft.bsp.common.base.BaseModelJson1;
 import com.neusoft.bsp.prodect.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -19,7 +21,7 @@ public class ProductController {
 
     @GetMapping ("/getProduct")
     public String getProduct(){
-        int code = 20000;
+        int code = 200;
         List<HashMap> response = new LinkedList<>();
         List<String> res = productService.getProID();
         for(String resi:res){
@@ -32,7 +34,7 @@ public class ProductController {
             responseMap.put("imgSrc", productImgUrl);
             response.add(responseMap);
         }
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
 
 }

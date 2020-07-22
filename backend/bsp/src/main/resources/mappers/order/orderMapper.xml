@@ -21,7 +21,7 @@
     </select>
 
     <select id="getPRO_NAME" parameterType="java.lang.String" resultType="java.lang.String" >
-        select TITLE from pro_product where PRO_ID = #{PRO_ID}
+        select TITLE from pro_product1 where PRO_ID = #{PRO_ID}
     </select>
 
     <select id="getSKU_NO" parameterType="java.lang.String" resultType="java.lang.String" >
@@ -109,7 +109,7 @@
     </select>
 
     <select id="getPASSWORD" parameterType="java.lang.String" resultType="java.lang.String" >
-        select PASSWORD from waa_wallet_account where ACCOUNT_NAME = #{ACCOUNT_NAME}
+        select PASSWORD from waa_wallet_account1 where ACCOUNT_NAME = #{ACCOUNT_NAME}
     </select>
 
     <update id = "updateORDER_STS" parameterType="java.lang.String">
@@ -121,15 +121,15 @@
     </select>
 
     <select id="getBUYER_ID" parameterType="java.lang.String" resultType="java.lang.String" >
-        select BUYER_ID from waa_wallet_account where ACCOUNT_NAME = #{ACCOUNT_NAME}
+        select BUYER_ID from waa_wallet_account1 where ACCOUNT_NAME = #{ACCOUNT_NAME}
     </select>
 
     <select id="getAVAILABLE_MONEY" parameterType="java.lang.String" resultType="java.lang.Integer" >
-        select AVAILABLE_MONEY from waf_wallet_account_fund where BUYER_ID = #{BUYER_ID}
+        select AVAILABLE_MONEY from waf_wallet_account_fund1 where BUYER_ID = #{BUYER_ID}
     </select>
 
     <update id = "updateAVAILABLE_MONEY" parameterType="java.lang.String">
-        update waf_wallet_account_fund set AVAILABLE_MONEY = #{param1} where BUYER_ID = #{param2}
+        update waf_wallet_account_fund1 set AVAILABLE_MONEY = #{param1} where BUYER_ID = #{param2}
     </update>
 
 </mapper>
