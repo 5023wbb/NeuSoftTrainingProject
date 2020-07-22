@@ -23,4 +23,8 @@
     <select id="getDropShipperRemark" parameterType="java.lang.String" resultType="java.lang.String" >
         select REMARK from dsr_dropshipper where DSR_ID = #{DSR_ID}
     </select>
+
+    <select id="getDsr" parameterType="java.lang.String" resultType="java.lang.String" >
+        select DSR_ID from dsr_dropshipper where NAME = #{NAME}
+    </select>
 </mapper>

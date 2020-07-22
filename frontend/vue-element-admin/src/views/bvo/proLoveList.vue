@@ -82,11 +82,11 @@ export default {
 		  console.log(this.multipleSelection)
 		  this.multipleSelection.forEach(row => {
 		    deletePro({
-			  dsr_ID: '1',
+			  dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
 			  proID: row.proID
 			}).then(res => {
-				
-				})  
+
+				})
 			})
 			location.reload()
 		/* getWishList({
@@ -100,12 +100,12 @@ export default {
 			    message: '删除成功'
 			  })
 			}) */
-        
+
       }
     },
     wishlist() {
       getWishList({
-        dsr_ID: '1',
+        dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
       }).then(res => {
 		console.log(res)
         this.wishList = res.data

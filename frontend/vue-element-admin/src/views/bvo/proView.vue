@@ -4,7 +4,7 @@
       <aside>Feature Product</aside>
       <el-carousel :interval="4000" type="card" height="200px">
         <el-carousel-item v-for="item in products" :key="item.imgSrc">
-          <img :src="require('../../assets/img/'+item.imgSrc)" style="height: 150px ;weight: 150px" alt="products" @click="showDetail">
+          <img :src="require('../../assets/img/'+item.imgSrc)" style="height: 150px ;weight: 150px" alt="products" @click="showDetail(item.title)">
           <el-row class="title">{{ item.title }}</el-row>
           <el-row class="price">${{ item.price }}</el-row>
         </el-carousel-item>
@@ -22,7 +22,7 @@ export default {
         title: 'Nike Vapor 13 Elite FG', imgSrc: 'B.webp', price: '1399' }, {
         title: 'Nike Superfly 7 Elite MDS AG-PRO', imgSrc: 'C.webp', price: '1599' }, {
         title: 'Nike Superfly 7 Elite CR7 FG', imgSrc: 'D.webp', price: '1799'
-      }]
+      }],
     }
   },
   created() {
@@ -40,9 +40,13 @@ export default {
         this.products = res.data
       })
     },
-    showDetail() {
-      const vm = this
-      vm.$router.push('proDetail')
+    showDetail(title) {
+
+            window.sessionStorage.setItem("Product", title)
+            const vm = this
+            vm.$router.push('proDetail')
+
+
     }
   }
 }

@@ -23,9 +23,6 @@
           <el-form-item label="店铺名称" :label-width="formLabelWidth">
             <el-input v-model="form.storeName" autocomplete="off" placeholder="请输入店铺名称"/>
           </el-form-item>
-          <el-form-item label="借卖方ID" :label-width="formLabelWidth">
-            <el-input v-model="form.dsrID" autocomplete="off" placeholder="请输入借卖方ID"/>
-          </el-form-item>
           <el-form-item label="网点网址" :label-width="formLabelWidth">
             <el-radio-group v-model="form.website">
               <el-radio label="1">Amazon</el-radio>
@@ -57,7 +54,6 @@ export default {
       form: {
         storeName: '',
         website: '',
-        dsrID: ''
       }
     }
   },
@@ -68,7 +64,7 @@ export default {
   methods: {
     getamalist() { // 从后端导入tableDataAma
       getAmaList({
-        dsrID: 1
+        dsrID: JSON.parse(window.sessionStorage.getItem("DSRID"))
       }).then(res => {
         this.$message({
           showClose: true,
@@ -80,7 +76,7 @@ export default {
     },
     getebaylist() { // 从后端导入tableDataEbay
       getEbayList({
-        dsrID: 1
+        dsrID: JSON.parse(window.sessionStorage.getItem("DSRID"))
       }).then(res => {
         this.$message({
           showClose: true,
@@ -94,10 +90,36 @@ export default {
       this.dialogFormVisible = false
       this.form.website = ''
     },
-    savestore() {
+		savestore() {
+			  if(this.form.storeName === '' || this.form.website === ''){
+				  this.$message({
+				    showClose: true,
+				    type: 'warning',
+				    message: ' 您的信息不完整，无法添加',
+				  })
+			  } else{
+				  this.dialogFormVisible = false
+				  saveStore({
+				    dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
+				    store_Name: this.form.storeName,
+				  		website_Name: this.form.website
+				  }).then(res => {
+				    this.$message({
+				      showClose: true,
+				      type: 'success',
+				      message: ' 保存成功',
+				    })
+				  		this.form.website = ''
+				  			this.form.storeName = ''
+				  		    this.form.dsrID = ''
+				  })
+			  }
+		      
+		    }
+    /* savestore() {
       this.dialogFormVisible = false
       saveStore({
-        dsr_ID: this.form.dsrID,
+        dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
         store_Name: this.form.storeName,
 		website_Name: this.form.website
       }).then(res => {
@@ -110,7 +132,7 @@ export default {
 			this.form.storeName = ''
 		    this.form.dsrID = ''
       })
-    }
+    } */
   }
 }
 </script>

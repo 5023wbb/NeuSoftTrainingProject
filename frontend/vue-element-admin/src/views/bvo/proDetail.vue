@@ -2,7 +2,7 @@
   <div class="components-container">
     <el-container>
       <el-aside>
-        <img :src="require('../../assets/img/A.webp')" style="height: 300px ;weight: 300px">
+        <img :src="require('../../assets/img/' + imgSrc)" style="height: 300px ;weight: 300px">
       </el-aside>
       <el-main>
         <p class="span-name">{{ title }}</p>
@@ -49,7 +49,7 @@ export default {
     return {
       activeName: 'Ama',
       imgSrc: '',
-      title: '足球鞋1',
+      title: '',
       price: '',
       brand: '',
       sku: '',
@@ -64,7 +64,8 @@ export default {
 	    label: 'Ebay',
 	    children: []
 	  }],
-	  props: { multiple: true }
+	  props: { multiple: true },
+	  
 
     }
   },
@@ -75,15 +76,15 @@ export default {
 	dropship() {
 	  this.dialogFormVisible = true
 	  getAmaList({
-	    dsrID: '1'
-	  }).then(res => { 
+	    dsrID: JSON.parse(window.sessionStorage.getItem("DSRID"))
+	  }).then(res => {
 		console.log(res.data)
 	    res.data.forEach(item => {
 	      this.storeOptions[0].children.push({ value: item.STR_ID, label: item.ama })
 	    })
 	  })
 	  getEbayList({
-	    dsrID: '1'
+	    dsrID: JSON.parse(window.sessionStorage.getItem("DSRID"))
 	  }).then(res => {
 	    res.data.forEach(item => {
 	      this.storeOptions[1].children.push({ value: item.STR_ID, label: item.eba })
@@ -95,9 +96,9 @@ export default {
 	  this.storeValue.forEach(item => {
 		pushToStore({
 			str_ID: item[1],
-			pro_Name: '足球鞋1'
+			pro_Name: window.sessionStorage.getItem("Product")
 		}).then(res => {
-			
+
 		})
 	  })
 	  this.$message({
@@ -109,8 +110,8 @@ export default {
 
     addwish() {
       addWish({
-        pro_Name: '足球鞋1',
-        dsr_ID: '1'
+        pro_Name: window.sessionStorage.getItem("Product"),
+        dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID"))
       }).then(res => {
     if(res.code === 200)
     {
@@ -125,16 +126,17 @@ export default {
 			type: 'danger',
       message: '失败：重复添加'
       })
-    }  
-		
-		  
+    }
+
+
       })
     },
     getdetail() {
       getDetail({
-        pro_Name: '足球鞋1'
+        pro_Name: window.sessionStorage.getItem("Product")
       }).then(res => {
 		console.log(res)
+		this.title = window.sessionStorage.getItem("Product")
         this.price = res.data[0].price
         this.brand = res.data[0].brand
         this.imgSrc = res.data[0].imgSrc

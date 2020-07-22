@@ -460,31 +460,31 @@ export default {
         })
       } else {
         searchawaPay({//待支付
-	      dsr_ID: '1',
+	      dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           str_Name: this.formInline.store
         }).then(res => {
           this.awaPayList = res.data
         })
         searchawaShip({//代发货
-		  dsr_ID: '1',
+		  dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           str_Name: this.formInline.store
         }).then(res => {
           this.awaShipList = res.data
         })
         searchShip({//已发货
-		  dsr_ID: '1',
+		  dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           str_Name: this.formInline.store
         }).then(res => {
           this.shippedList = res.data
         })
         searchComplete({
-		  dsr_ID: '1',
+		  dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           str_Name: this.formInline.store
         }).then(res => {
           this.completedList = res.data
         })
         searchCancel({
-		  dsr_ID: '1',
+		  dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           str_Name: this.formInline.store
         }).then(res => {
           this.cancelList = res.data
@@ -567,7 +567,7 @@ export default {
       this.Form.shipNumber = ''
     },
     // 向后端传入dsrID 和支付密码进行支付的方法
-    payorder() {
+    /* payorder() {
       // eslint-disable-next-line no-empty
       if (this.forM.password === '') {
         this.$message({
@@ -579,7 +579,7 @@ export default {
         this.dialogFormVisibleForPay = false
         this.dialogFormVisible = false
         PayOrder({
-          dsr_ID: '1',
+          dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           password: this.forM.password,
 		  orderID: this.currentOrder
         }).then(res => {
@@ -591,7 +591,44 @@ export default {
 		this.currentOrder = ''
         })
       }
-    },
+    }, */
+		payorder() {
+		      // eslint-disable-next-line no-empty
+		      if (this.forM.password === '') {
+		        this.$message({
+		          type: 'warning',
+		          message: '亲~您的密码输入不能为空哦',
+		          showClose: true
+		        })
+		      } else {
+		        this.dialogFormVisibleForPay = false
+		        this.dialogFormVisible = false
+		        PayOrder({
+		          dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
+		          password: this.forM.password,
+				  orderID: this.currentOrder
+		        }).then(res => {
+				  console.log(res.code + "ayusgduhasbfduhabfuhbasbgf")
+				  if(res.code != 200){
+					  this.$message({
+					    type: 'warning',
+					    showClose: true,
+					    message: '您的密码不正确或者余额不足'
+					  })
+				  }
+				  else{
+					  this.$message({
+						type: 'success',
+						showClose: true,
+						message: '亲~您的订单支付成功 您的宝贝理你越来越近了'
+					  })
+					  this.currentOrder = ''
+					  this.searchorder()
+				  }
+				  this.forM.password = ''
+		        })
+		      }
+		    },
     // 关闭支付对话框的方法
     cancelpay() {
       this.dialogFormVisibleForPay = false
@@ -614,7 +651,7 @@ export default {
 		  this.activities[0].type = 'plain'
 		  this.activities[2].type = 'plain'
 		  this.activities[3].type = 'plain'
-		  
+
         } else if (res.data[0].DELIVERY_STS === '3') {
           this.activities[2].type = 'success'
 		  this.activities[0].type = 'plain'

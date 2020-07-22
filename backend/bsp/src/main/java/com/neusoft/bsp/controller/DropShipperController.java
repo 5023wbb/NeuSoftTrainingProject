@@ -27,13 +27,10 @@ public class DropShipperController {
     public String getDropShipper(@RequestBody Map<String,String> param){
         int code = 200;
         String DSR_ID = param.get("dsrID");
-        //System.out.println("DSRID: " + DSR_ID);
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
         responseMap.put("dropShipperName", dropShipperService.getDropShipperName(DSR_ID));
         responseMap.put("dropShipperRemark", dropShipperService.getDropShipperRemark(DSR_ID));
-        /*System.out.println("Name: " +  dropShipperService.getDropShipperName(DSR_ID));
-        System.out.println("RESPONSEMAP: " + responseMap);*/
         response.add(responseMap);
         return JSON.toJSONString(new BaseModelJson1<>(code,response));
     }
@@ -44,7 +41,6 @@ public class DropShipperController {
         String DSR_ID = param.get("dsr_ID");
         String NAME = param.get("dsr_Name");
         String REMARK = param.get("dsr_remark");
-        System.out.println("Remark" + REMARK + "ID " + DSR_ID);
         dropShipperService.updateDropShipperName(DSR_ID, NAME);
         dropShipperService.updateRemark(DSR_ID, REMARK);
         List<HashMap> response = new LinkedList<>();
@@ -54,18 +50,17 @@ public class DropShipperController {
     }
 
 
-    /*@PostMapping("/getDropShipperRemark")
-    public String getDropShipperRemark(@RequestBody Map<String,String> param){
-        int code = 20000;
-        String DSR_ID = param.get("dsrID");
-        //System.out.println("DSRID: " + DSR_ID);
+    @PostMapping("/getDsr")
+    public String getDsr(@RequestBody Map<String, String> param){
+        int code = 200;
+        String NAME = param.get("userName");
+        String dsr_ID = dropShipperService.getDsr(NAME);
         List<HashMap> response = new LinkedList<>();
         HashMap<String, Object> responseMap = new HashMap<>();
-        responseMap.put("dropShipperRemark", dropShipperService.getDropShipperRemark(DSR_ID));
-        *//*System.out.println("Name: " +  dropShipperService.getDropShipperName(DSR_ID));
-        System.out.println("RESPONSEMAP: " + responseMap);*//*
+        responseMap.put("dsr_ID", dsr_ID);
+        System.out.println("asdkamfijbaihfbaishf" + dsr_ID);
         response.add(responseMap);
-        return JSON.toJSONString(new BaseModelJson<>(code,response));
-    }*/
+        return JSON.toJSONString(new BaseModelJson1<>(code,response));
+    }
 
 }

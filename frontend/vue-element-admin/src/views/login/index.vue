@@ -78,6 +78,7 @@
 import SocialSign from './components/SocialSignin'
 import axios from 'axios'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getDsr } from '../../api/getDsr'
 
 export default {
   name: 'Login',
@@ -185,6 +186,12 @@ export default {
             }).catch(err => {
                 alert(err);
             });
+			console.log(JSON.parse(window.sessionStorage.getItem("USER_AUTH")).username + "alkdjfnajignajng")
+			getDsr({ userName:JSON.parse(window.sessionStorage.getItem("USER_AUTH")).username}).then(
+				res => {
+					window.sessionStorage.setItem("DSRID", res.data[0].dsr_ID)
+				}
+			)
         } else {
           console.log('error submit!!')
           return false

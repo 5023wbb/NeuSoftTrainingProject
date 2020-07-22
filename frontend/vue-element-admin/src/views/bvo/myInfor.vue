@@ -42,7 +42,7 @@ export default {
         iconClass: 'el-icon-edit'
       }).then(() => {
         editBVO({
-          dsr_ID: '1',
+          dsr_ID: JSON.parse(window.sessionStorage.getItem("DSRID")),
           dsr_Name: this.form.name,
           dsr_remark: this.form.remark
         })
@@ -59,7 +59,7 @@ export default {
     },
     getbvo() { // 从后端获取借卖方的姓名和备注
       getBVO({
-        dsrID: '1'
+        dsrID: JSON.parse(window.sessionStorage.getItem("DSRID"))
       }).then(res => {
 		console.log("Enter")
 		console.log(res)
